@@ -2,7 +2,8 @@
 title: "Tema 1 - Muestreo estadístico"
 author: "Ricardo Alberich, Juan Gabriel Gomila y Arnau Mir"
 date: ''
-output: 
+output:
+  beamer_presentation: default
   ioslides_presentation:
     widescreen: true
     css: Mery_style.css
@@ -101,6 +102,7 @@ Las primeras filas de la tabla de datos son:
 
 ```{r}
 head(iris)
+str(iris)
 ```
 </div>
 
@@ -113,6 +115,7 @@ La función set.seed fija la semilla de aleatoriedad sirve para que siempre dé 
 ```{r}
 set.seed(4) 
 flores.elegidas.10.con=sample(1:150,10,replace=TRUE) 
+flores.elegidas.10.con
 ```
 
 Seguidamente, calculamos la subtabla de las flores de la muestra
@@ -131,6 +134,8 @@ Por último, mostramos la muestra de las flores:
 muestra.iris.10.con 
 ```
 </div>
+
+sale 51.1 porque esta repetida
 
 ## Muestreo aleatorio sin reposición {-}
 <l class="definition">Muestra aleatoria sin reposición</l>: Otra manera de extraer nuestra muestra sería repetir 15 veces el proceso de sacar una bola de la urna pero ahora sin devolverla. En este caso se habla de una **muestra aleatoria sin reposición**.
@@ -228,14 +233,17 @@ Seguidamente, hallamos la etiqueta de la primera flor de la muestra (que será u
 A continuación, hallamos el incremento que vamos a ir sumando a la primera etiqueta que hemos elegido:
 ```{r}
 incremento = floor(150/10)
+incremento
 ```
 el siguiente paso es elegir las flores de la muestra
 ```{r}
 flores.elegidas.10.sis = seq(from=primera.flor,by=incremento,length.out=10)
+flores.elegidas.10.sis
 ```
 como las etiquetas elegidas no están entre 1 y 150, hemos de transformarlas:
 ```{r}
 flores.elegidas.10.sis = flores.elegidas.10.sis%%150
+flores.elegidas.10.sis
 ```
 a continuación, calculamos la subtabla de las flores de la muestra
 ```{r}
@@ -374,6 +382,11 @@ países.elegidos
 
 ## Ejemplo `worldcup` {-}
 
+```{r}
+worldcup$Team%in%países.elegidos
+```
+
+
 <div class="example-sol">
 La muestra elegida estará formada por los jugadores que perteneces a dichos países:
 ```{r}
@@ -390,7 +403,7 @@ head(muestra.worldcup.con,8)
 <l class="definition"> Muestreo polietápico</l>: si una vez seleccionada la muestra aleatoria de conglomerados, tomamos de alguna manera una muestra aleatoria de cada uno de ellos, estaremos realizando un **muestreo polietápico**.
 
 La figura muestra un ejemplo sencillo de muestreo polietápico de nuestra urna: hemos elegido al azar 5 conglomerados (marcados en azul) y de cada uno de ellos hemos elegido 3 bolas al azar sin reposición.
-
++
 <div class="center">
 ```{r, echo=FALSE, label=poli,fig.cap="Una muestra polietápica de 5 conglomerados y 3 bolas al azar sin reposición",out.width = "600px"}
 knitr::include_graphics("Images/poli.png",dpi=400)
@@ -461,7 +474,7 @@ head(muestra.worldcup.pol,12)
 Cargamos la librería reticulate para conectar `R` con `Python` indicando donde tenemos instalada la versión favorita de `Python`:
 ```{r}
 library(reticulate)
-use_python("/usr/bin/python3")
+#use_python("~/anaconda3/bin/python3")
 #reticulate::py_install("pandas")
 ```
 
@@ -496,3 +509,6 @@ Si queremos obtener un porcentaje concreto del total del individuos de la poblac
 iris_py.sample(frac=0.02) # n = 3
 ```
 
+```{python}
+iris_py.sample(n = 3) 
+```
