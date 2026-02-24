@@ -3,12 +3,12 @@ title: "Tema 2 - Estimación Puntual"
 author: "Ricardo Alberich, Juan Gabriel Gomila y Arnau Mir"
 date: ''
 output:
+  beamer_presentation: 
+    colortheme: dolphin
   ioslides_presentation: 
     widescreen: yes
     css: Mery_style.css
     logo: Images/matriz_mov.gif
-  beamer_presentation: 
-    colortheme: dolphin
   slidy_presentation: 
     keep_md: yes
 ---
@@ -185,6 +185,7 @@ Para generar los valores medios de las longitudes del pétalo de las 10000 muest
 
 ```{r}
 set.seed(1001)
+str(iris)
 valores.medios.long.pétalo=replicate(10000,mean(sample(iris$Petal.Length,40,
                                                       replace =TRUE)))
 
@@ -194,6 +195,7 @@ Los valores medios de las 10 primeras muestras anteriores serían
 
 ```{r, echo=FALSE}
 head(valores.medios.long.pétalo, 10)
+str(valores.medios.long.pétalo)
 ```
 
 </div>
@@ -222,6 +224,7 @@ sd(valores.medios.long.pétalo)
 ```
 Dicho valor tiene que estar cerca de $\frac{\sigma_{lp}}{\sqrt{40}}$ (donde $\sigma_{lp}$ es la desviación típica de la variable longitud del pétalo) tal como predice la propiedad de la media muestral referida a la desviación típica de la misma:
 ```{r}
+sd(iris$Petal.Length)
 sd(iris$Petal.Length)/sqrt(40)
 ```
 Fijaos también en que los dos valores están muy próximos.
@@ -439,6 +442,7 @@ props.muestrales = replicate(10000,table(sample(iris$Species,60,
 ```
 La desviación típica de las proporciones muestrales anteriores vale:
 ```{r}
+mean(props.muestrales)
 sd(props.muestrales)
 ```
 valor muy próximo al valor real que vale: $\displaystyle \sigma_{\widehat{p}_X}=\sqrt{\frac{p_X(1-p_X)}{n}}= \sqrt{\frac{\frac{50}{150}\cdot \left(1-\frac{50}{150}\right)}{60}}=`r round(sqrt((1/3)*(2/3)/60),4)`$.
@@ -515,7 +519,7 @@ donde  $Z_{1},Z_{2},\ldots, Z_{n}$ son v.a. independientes  $N(0,1)$.
 
 <l class="prop">Propiedades $\chi_n^2$ </l>
 
-* Su función de densidad es:
+* Su función de densidad es
 $$
 f_{\chi_n^2}(x)={\frac{1}{2^{n/2} \Gamma (n/2)}} x^{(n/2)-1} e^{-x/2},\quad\mbox{ si $x\geq 0$}
 $$
@@ -574,7 +578,7 @@ $$
 Nos piden: $\displaystyle P(\widetilde{S}_{X}<2.5)= P\left(\widetilde{S}_{X}^2<2.5^2\right)$:
 $$
 P\left(\widetilde{S}_{X}^2<2.5^2\right)  =  P\left(\frac{11\cdot \widetilde{S}_{X}^2}{`r 1.7^2`}<\frac{11
-\cdot 2.5^2}{`r 1.7^2`}\right)  =  P(\chi_{11}^2<`r round(11*2.5^2/1.7^2,4)`) =`r round(pchisq( 11*2.5^2/1.7^2,11),4)`.
+\cdot 2.5^2}{`r 1.7^2`}\right)  =  P(\chi_{11}^2<`r round(11*2.5^2/1.7^2,4)`) = `r round(pchisq( 11*2.5^2/1.7^2,11),4)`.
 $$
 
 </div>

@@ -1,4 +1,4 @@
----
+  ---
 title: "Tema 4 - Contrastes de hipótesis paramétricos"
 author: "Ricardo Alberich, Juan Gabriel Gomila y Arnau Mir"
 date: 
